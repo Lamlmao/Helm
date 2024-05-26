@@ -1,0 +1,19 @@
+namespace: argocd
+repoURL: https://github.com/sotatek-dev/GPU-AItech-helmchart.git
+project: default
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+apps:    
+  - name: argocd-apps
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: backend
+    source:
+      targetRevision: main
+      path: charts/backend
+      valueFiles:
+        - ../../env/dev/backend/values.yaml
